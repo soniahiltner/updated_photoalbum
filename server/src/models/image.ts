@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 const imageSchema = new mongoose.Schema({
   filename: String,
   url: String,
-  favourite: {
+  isFavourite: {
     type: Boolean,
     default: false
   },
