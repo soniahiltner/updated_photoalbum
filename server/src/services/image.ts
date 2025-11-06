@@ -123,11 +123,11 @@ class ImageService {
 
   // Update image-albums
   // Add image to an album
-  static async addImageToAlbum(id: string, albumName: string) {
+  static async addImageToAlbum(id: string, albumsArray: string[]) {
     try {
       const image = await Image.findOneAndUpdate(
         { _id: id },
-        { $addToSet: { albums: albumName } },
+        { $addToSet: { albums: { $each: albumsArray } } },
         { new: true }
       )
       if (!image) {
