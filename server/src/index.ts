@@ -2,6 +2,8 @@ import express from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
 import mongoose from 'mongoose'
+import imagesRouter from './routes/image.js'
+import albumsRouter from './routes/album.js'
 
 dotenv.config()
 const PORT = process.env.PORT || 3000
@@ -26,6 +28,25 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 
-app.get('/', (req, res) => {
-  res.send('Hello, World!')
+app.use('/api/images', imagesRouter)
+app.use('/api/albums', albumsRouter)
+
+//route not found handler
+app.use((req, res) => {
+  res.status(404).json({ error: 'Route not found' })
 })
+
+//global error handler
+app.use(
+  (
+    err: Error,
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
+    console.error(err.stack)
+    res
+      .status(500)
+      .json({ error: 'Something went wrong!', details: err.message })
+  }
+)

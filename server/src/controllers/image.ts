@@ -1,7 +1,6 @@
-import type { Request, Response } from "express"
-import { ImageService } from "../services/image.js"
-import { uploadImages} from "../middleware/multer.js"
-
+import type { Request, Response } from 'express'
+import { ImageService } from '../services/image.js'
+import { uploadImages } from '../middleware/multer.js'
 
 class ImageController {
   // Get images
@@ -122,8 +121,8 @@ class ImageController {
   // Update image-albums
   static async updateImageAlbums(req: Request, res: Response) {
     const id = req.params.id?.toString()
-    const albums = req.body.albums as string[] || null
-    const albumName = req.body.albumName as string || ''
+    const albums = (req.body.albums as string[]) || null
+    const albumName = (req.body.albumName as string) || ''
     if (!id) {
       return res.status(400).json({ error: 'Image ID is required' })
     }
@@ -144,7 +143,6 @@ class ImageController {
         details: error instanceof Error ? error.message : 'Unknown error'
       })
     }
-
   }
 
   // Update image-albums
