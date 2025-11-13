@@ -7,11 +7,19 @@ class ImageController {
   // Get images
   static async getImages(req: Request, res: Response) {
     const queryPage = parseInt(req.query.page as string) || 1
+    const queryFavPage = parseInt(req.query.favpage as string) || 1
+    const isFavourite = req.query.favourite === 'true'
+
     try {
-      const { images, page, totalPages, count } = await ImageService.getImages(
-        queryPage
-      )
-      return res.status(200).json({ images, page, totalPages, count })
+      if (isFavourite) {
+        const { images, page, totalPages, count } =
+          await ImageService.getFavouriteImages(queryFavPage)
+        return res.status(200).json({ images, page, totalPages, count })
+      } else {
+        const { images, page, totalPages, count } =
+          await ImageService.getImages(queryPage)
+        return res.status(200).json({ images, page, totalPages, count })
+      }
     } catch (error) {
       res.status(500).json({
         error: 'Error trying to get images',
@@ -20,54 +28,28 @@ class ImageController {
     }
   }
 
-  // Get favourite images
-  static async getFavouriteImages(req: Request, res: Response) {
-    const queryPage = parseInt(req.query.page as string) || 1
-    try {
-      const { images, page, totalPages, count } =
-        await ImageService.getFavouriteImages(queryPage)
-      return res.status(200).json({ images, page, totalPages, count })
-    } catch (error) {
-      res.status(500).json({
-        error: 'Error trying to get favourite images',
-        details: error instanceof Error ? error.message : 'Unknown error'
-      })
-    }
-  }
-
   // Get album images
   static async getAlbumImages(req: Request, res: Response) {
-    const albumName = req.params.name
+    const albumName = req.params.albumname
+    const isLast = req.query.last === 'true'
+    const queryPage = parseInt(req.query.page as string) || 1
+
     if (!albumName) {
       return res.status(400).json({ error: 'Album name is required' })
     }
+
     try {
-      const { images, page, totalPages, count } =
-        await ImageService.getAlbumImages(
-          albumName,
-          parseInt(req.query.page as string) || 1
-        )
-      return res.status(200).json({ images, page, totalPages, count })
+      if (isLast) {
+        const image = await ImageService.getAlbumLastImage(albumName)
+        return res.status(200).json(image)
+      } else {
+        const { images, page, totalPages, count } =
+          await ImageService.getAlbumImages(albumName, queryPage)
+        return res.status(200).json({ images, page, totalPages, count })
+      }
     } catch (error) {
       res.status(500).json({
         error: 'Error trying to get album images',
-        details: error instanceof Error ? error.message : 'Unknown error'
-      })
-    }
-  }
-
-  // Get album last-image
-  static async getAlbumLastImage(req: Request, res: Response) {
-    const albumName = req.params.name
-    if (!albumName) {
-      return res.status(400).json({ error: 'Album name is required' })
-    }
-    try {
-      const image = await ImageService.getAlbumLastImage(albumName)
-      return res.status(200).json(image)
-    } catch (error) {
-      res.status(500).json({
-        error: 'Error trying to get album last image',
         details: error instanceof Error ? error.message : 'Unknown error'
       })
     }
@@ -138,6 +120,34 @@ class ImageController {
   }
 
   // Update image-albums
+  static async updateImageAlbums(req: Request, res: Response) {
+    const id = req.params.id?.toString()
+    const albums = req.body.albums as string[] || null
+    const albumName = req.body.albumName as string || ''
+    if (!id) {
+      return res.status(400).json({ error: 'Image ID is required' })
+    }
+    try {
+      if (albums) {
+        await ImageService.addImageToAlbum(id, albums)
+        return res
+          .status(200)
+          .json({ message: 'Image added to album successfully' })
+      }
+      if (albumName) {
+        const image = await ImageService.removeImageFromAlbum(id, albumName)
+        return res.status(200).json(image)
+      }
+    } catch (error) {
+      return res.status(500).json({
+        error: 'Error trying to update image albums',
+        details: error instanceof Error ? error.message : 'Unknown error'
+      })
+    }
+
+  }
+
+  // Update image-albums
   // Add image to an album
   static async addImageToAlbum(req: Request, res: Response) {
     const id = req.params.id?.toString()
@@ -158,6 +168,7 @@ class ImageController {
     }
   }
 
+  // Update image-albums
   // Remove image from an album
   static async removeImageFromAlbum(req: Request, res: Response) {
     const id = req.params.id?.toString()
@@ -179,3 +190,14 @@ class ImageController {
     }
   }
 }
+
+export const {
+  getImages,
+  getAlbumImages,
+  createImage,
+  deleteImage,
+  updateImageFavourite,
+  addImageToAlbum,
+  removeImageFromAlbum,
+  updateImageAlbums
+} = ImageController

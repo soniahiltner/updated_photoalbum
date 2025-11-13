@@ -140,6 +140,7 @@ class ImageService {
     }
   }
 
+  // Update image-albums
   // Remove image from an album
   static async removeImageFromAlbum(id: string, albumName: string) {
     try {
