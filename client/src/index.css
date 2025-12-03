@@ -1,5 +1,3 @@
-
-
 *,
 *::before,
 *::after {
@@ -7,8 +5,6 @@
   padding: 0;
   box-sizing: border-box;
 }
-
-
 
 .app {
   margin: 0 auto;

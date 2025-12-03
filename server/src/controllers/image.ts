@@ -1,6 +1,5 @@
 import type { Request, Response } from 'express'
 import { ImageService } from '../services/image.js'
-import { uploadImages } from '../middleware/multer.js'
 
 class ImageController {
   // Get images
@@ -56,28 +55,38 @@ class ImageController {
 
   // Create image
   static async createImage(req: Request, res: Response) {
-    uploadImages(req, res, async function (err) {
-      if (err instanceof Error) {
-        return res.status(500).json({ error: err.message })
-      } else if (err) {
-        return res
-          .status(500)
-          .json({ error: 'Unknown error during file upload' })
+    console.log('📸 Create image endpoint hit')
+    console.log('📋 Request headers:', req.headers['content-type'])
+    console.log('📁 Files received:', req.files)
+
+    try {
+      const files = req.files as Express.Multer.File[]
+      console.log('📊 Number of files:', files?.length)
+
+      if (!files || files.length === 0) {
+        return res.status(400).json({ error: 'No files uploaded' })
       }
-      try {
-        const files = req.files as Express.Multer.File[]
-        files.forEach(async (file) => {
-          await ImageService.createImage(file)
+
+      // Usar Promise.all para esperar que todas las imágenes se guarden
+      console.log('💾 Saving images to database...')
+      const savedImages = await Promise.all(
+        files.map(async (file) => {
+          console.log('🖼️  File info (todas las propiedades):', file)
+          return await ImageService.createImage(file)
         })
-        const images = await ImageService.getImages(1)
-        return res.status(201).json(images)
-      } catch (error) {
-        res.status(500).json({
-          error: 'Error trying to create image',
-          details: error instanceof Error ? error.message : 'Unknown error'
-        })
-      }
-    })
+      )
+      console.log('✅ Images saved:', savedImages.length)
+
+      const images = await ImageService.getImages(1)
+      console.log('📤 Sending response')
+      return res.status(201).json(images)
+    } catch (error) {
+      console.error('❌ Error in createImage:', error)
+      res.status(500).json({
+        error: 'Error trying to create image',
+        details: error instanceof Error ? error.message : 'Unknown error'
+      })
+    }
   }
 
   // Delete image

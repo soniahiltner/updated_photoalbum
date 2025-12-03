@@ -1,6 +1,5 @@
-import { Image } from "../models/image.js"
-import { v2 as cloudinary } from 'cloudinary'
-
+import { Image } from '../models/image.js'
+import { cloudinary } from '../libs/cloudinary.js'
 
 class ImageService {
   // Get images
@@ -76,11 +75,13 @@ class ImageService {
   }
 
   // Create image
-  static async createImage(file: Express.Multer.File) {
+  static async createImage(
+    file: Express.Multer.File & { public_id?: string; secure_url?: string }
+  ) {
     try {
       const image = await Image.create({
-        filename: file.filename,
-        url: file.path
+        filename: file.public_id || file.filename,
+        url: file.secure_url || file.path
       })
       return image
     } catch (error) {
