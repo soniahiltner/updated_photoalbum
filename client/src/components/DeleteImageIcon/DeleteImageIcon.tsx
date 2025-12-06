@@ -1,10 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import type { Album, DeleteImageIconProps, Image } from '../../types'
+import type { AlbumType, DeleteImageIconProps, Image } from '../../types'
 import styles from './DeleteImageIcon.module.css'
 import { imageService } from '../../api/images'
 
 const DeleteImageIcon = ({ image, album }: DeleteImageIconProps) => {
-
   const queryClient = useQueryClient()
 
   // Remove image from database
@@ -13,26 +12,34 @@ const DeleteImageIcon = ({ image, album }: DeleteImageIconProps) => {
     onSuccess: () => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ['images'] })
+      queryClient.invalidateQueries({ queryKey: ['albumImages'] })
+      queryClient.invalidateQueries({ queryKey: ['favourites'] })
     }
   })
 
-  // Remove image from album- update image's albums array
+  // Remove image from album - send albumName to remove it
   const removeImageFromAlbum = useMutation({
-    mutationFn: (updatedImage: Image) => imageService.updateImageAlbums(updatedImage._id!, updatedImage.albums),
+    mutationFn: ({
+      imageId,
+      albumName
+    }: {
+      imageId: string
+      albumName: string
+    }) => imageService.updateImageAlbums(imageId, undefined, albumName),
     onSuccess: () => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ['images'] })
+      queryClient.invalidateQueries({ queryKey: ['albumImages'] })
     }
   })
 
-  const deleteImage = (image: Image, album?: Album
-  ) => {
+  const deleteImage = (image: Image, album?: AlbumType) => {
     if (album) {
-      // Remove image from album
-      const updatedAlbums = image?.albums?.filter(
-        (alb: string) => alb !== album.name
-      )
-      removeImageFromAlbum.mutate({ ...image, albums: updatedAlbums })
+      // Remove image from album by sending albumName
+      removeImageFromAlbum.mutate({
+        imageId: image._id!,
+        albumName: album.name
+      })
     } else {
       // Delete image from database
       deleteImageFromDatabase.mutate(image._id!)

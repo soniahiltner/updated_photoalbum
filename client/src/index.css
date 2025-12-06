@@ -6,9 +6,15 @@
   box-sizing: border-box;
 }
 
+body {
+  background-color: rgb(107, 48, 107);
+  background-color: rgba(137, 43, 226, 0.87);
+}
+
 .app {
   margin: 0 auto;
   font-family: 'Roboto Condensed', sans-serif;
+  
 }
 
 img {

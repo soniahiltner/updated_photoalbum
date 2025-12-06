@@ -1,13 +1,14 @@
-import Gallery from '../../components/Gallery/Gallery'
-import { imagesInfiniteQueryOptions } from '../../queryOptions/imagesQueryOptions'
-import type { Image } from '../../types'
-import styles from './Home.module.css'
+//import Gallery from '../../components/Gallery/Gallery'
 import { useInfiniteQuery } from '@tanstack/react-query'
+import styles from './Favourites.module.css'
+import { favouritesInfiniteQueryOptions } from '../../queryOptions/imagesQueryOptions'
+import type { Image } from '../../types'
+import Gallery from '../../components/Gallery/Gallery'
 import { useEffect, useRef } from 'react'
 
-const Home = () => {
+const Favourites = () => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useInfiniteQuery(imagesInfiniteQueryOptions())
+    useInfiniteQuery(favouritesInfiniteQueryOptions())
 
   // Flatten all pages into a single array
   const images: Image[] = data?.pages.flatMap((page) => page.images) || []
@@ -38,25 +39,28 @@ const Home = () => {
   }, [fetchNextPage, hasNextPage, isFetchingNextPage])
 
   return (
-    <>
-      <div className={styles.home}>
-        {images.length > 0 && <Gallery images={images} />}
-        {/* Observer target for infinite scroll */}
-        <div
-          ref={observerTarget}
-          style={{ height: '20px' }}
+    <div className={styles.favourites}>
+      {images.length > 0 && (
+        <Gallery
+          images={images}
+          favouritesOnly={true}
         />
-        {isFetchingNextPage && (
-          <div style={{ textAlign: 'center', padding: '20px' }}>
-            <i
-              className='fa fa-spinner fa-spin'
-              style={{ fontSize: '24px' }}
-            ></i>
-          </div>
-        )}
-      </div>
-    </>
+      )}
+      {/* Observer target for infinite scroll */}
+      <div
+        ref={observerTarget}
+        style={{ height: '20px' }}
+      />
+      {isFetchingNextPage && (
+        <div style={{ textAlign: 'center', padding: '20px' }}>
+          <i
+            className='fa fa-spinner fa-spin'
+            style={{ fontSize: '24px' }}
+          ></i>
+        </div>
+      )}
+    </div>
   )
 }
 
-export default Home
+export default Favourites

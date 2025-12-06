@@ -1,53 +1,46 @@
-/* eslint-disable react/prop-types */
-import { useContext, useState } from 'react'
-import { ImagesContext } from '../../context/ImagesContext'
+import { useEffect } from 'react'
 import styles from './AddToAlbumForm.module.css'
-import type { AddToAlbumFormProps, Album, Image } from '../../types'
+import type { AddToAlbumFormProps, AlbumType } from '../../types'
+import { useQuery } from '@tanstack/react-query'
+import { albumsQueryOptions } from '../../queryOptions/imagesQueryOptions'
+import { useAddToAlbum } from '../../hooks/useAddToAlbum'
 
 const AddToAlbumForm = ({ image, setOpenSelect }: AddToAlbumFormProps) => {
-  const [selectedAlbum, setSelectedAlbum] = useState('')
-  const [error, setError] = useState('')
-  const { albums, addToAlbumEndpoint } = useContext(ImagesContext)
+  const { data } = useQuery(albumsQueryOptions())
+  const {
+    selectedAlbum,
+    error,
+    isLoading,
+    isSuccess,
+    handleAlbumChange,
+    addToAlbum
+  } = useAddToAlbum()
 
-  const options = albums.map((item: Album) => {
+  const albums: AlbumType[] = data || []
+
+  const options = albums.map((item: AlbumType) => {
     return { label: item.name, val: item.name }
   })
 
-  //Add image to album
-  const addImageToAlbum = async (image: Image) => {
-    const changedImage = {
-      ...image,
-      albums: [...image.albums, selectedAlbum]
+  // Cerrar modal después de éxito
+  useEffect(() => {
+    if (isSuccess) {
+      const timer = setTimeout(() => {
+        setOpenSelect(false)
+      }, 500)
+      return () => clearTimeout(timer)
     }
+  }, [isSuccess, setOpenSelect])
 
-    const fetchOptions = {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(changedImage)
-    }
-
-    if (selectedAlbum.length === 0) {
-      setError('Choose an option')
-    } else {
-      await fetch(`${addToAlbumEndpoint}${image._id}`, fetchOptions)
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data)
-        })
-        .catch((error) => console.log(error))
-
-      setOpenSelect(false)
-    }
-  }
-
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-
-    addImageToAlbum(image)
+    if (image._id) {
+      addToAlbum(image._id)
+    }
   }
 
-  const handleChange = (e) => {
-    setSelectedAlbum(e.target.value)
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    handleAlbumChange(e.target.value)
   }
 
   return (
@@ -62,7 +55,7 @@ const AddToAlbumForm = ({ image, setOpenSelect }: AddToAlbumFormProps) => {
       >
         <label>Add to:</label>
         <select
-          size='4'
+          size={4}
           name='album'
           value={selectedAlbum}
           onChange={handleChange}
@@ -80,10 +73,24 @@ const AddToAlbumForm = ({ image, setOpenSelect }: AddToAlbumFormProps) => {
         </select>
 
         <div className={styles.btnSelectContainer}>
-          <button type='submit'>Submit</button>
-          <button onClick={() => setOpenSelect(false)}>Cancel</button>
+          <button
+            type='submit'
+            disabled={isLoading}
+          >
+            {isLoading ? 'Adding...' : 'Submit'}
+          </button>
+          <button
+            type='button'
+            onClick={() => setOpenSelect(false)}
+            disabled={isLoading}
+          >
+            Cancel
+          </button>
         </div>
-        <span className={styles.error}>{error}</span>
+        {error && <span className={styles.error}>{error}</span>}
+        {isSuccess && (
+          <span className={styles.success}>Added successfully!</span>
+        )}
       </form>
     </div>
   )

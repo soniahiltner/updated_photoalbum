@@ -2,12 +2,42 @@
 .noFav {
   position: relative;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .favStar {
   color: red;
 }
+
 .noFav {
   color: lightgray;
 }
 
+.loading {
+  opacity: 0.6;
+  cursor: wait !important;
+  animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+.favStar:hover,
+.noFav:hover {
+  transform: scale(1.2);
+  filter: brightness(1.2);
+}
+
+.loading:hover {
+  transform: scale(1);
+  filter: none;
+}

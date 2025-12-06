@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { imageService } from '../api/images'
+import type { ValidationError } from '../types'
 
 const MAX_FILE_SIZE = 2 * 1024 * 1024 // 2MB
 const MAX_FILES = 3
@@ -14,10 +15,7 @@ const ALLOWED_TYPES = [
   'image/webp'
 ]
 
-interface ValidationError {
-  type: 'size' | 'type' | 'count'
-  message: string
-}
+
 
 export const useImageUpload = () => {
   const [files, setFilesState] = useState<File[]>([])

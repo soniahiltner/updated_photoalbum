@@ -1,4 +1,4 @@
-import type { Image, Album } from '../types'
+import type { Image, AlbumType } from '../types'
 import { apiClient } from './apiclient'
 import type { PaginatedResponse } from '../types'
 
@@ -22,8 +22,8 @@ class ImageService {
   // Get favourite images with pagination
   async getFavourites(favPageNumber: number = 1): Promise<PaginatedResponse> {
     return apiClient.get<PaginatedResponse>('/images', {
-      favourite: true,
-      favpage: favPageNumber
+      isFavourite: true,
+      favPage: favPageNumber
     })
   }
 
@@ -96,13 +96,13 @@ class AlbumService {
   }
 
   // Get all albums
-  async getAlbums(): Promise<string[]> {
-    return apiClient.get<string[]>('/albums')
+  async getAlbums(): Promise<AlbumType[]> {
+    return apiClient.get<AlbumType[]>('/albums')
   }
 
   // Create album
-  async createAlbum(albumName: string): Promise<Album> {
-    return apiClient.post<Album>('/albums', { albumName })
+  async createAlbum(name: string): Promise<AlbumType> {
+    return apiClient.post<AlbumType>('/albums', { name })
   }
 
   // Delete album

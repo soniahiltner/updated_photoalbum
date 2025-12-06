@@ -40,7 +40,7 @@
   cursor: pointer;
 }
 .selectForm select::-webkit-scrollbar {
-  display: none; 
+  display: none;
 }
 
 .selectForm select:active {
@@ -55,7 +55,6 @@
 .selectForm select option:hover {
   background-color: rgb(189, 181, 250);
   opacity: 1;
-
 }
 
 .selectForm select option:first-child {
@@ -67,7 +66,6 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  
 }
 
 .btnSelectContainer button {
@@ -85,6 +83,21 @@
 .selectForm .error {
   text-align: center;
   margin-top: 0.5rem;
-  color: green;
-  text-shadow: 0px 0px 10px greenyellow;
+  color: rgb(220, 53, 69);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.selectForm .success {
+  text-align: center;
+  margin-top: 0.5rem;
+  color: rgb(40, 167, 69);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-shadow: 0px 0px 8px rgba(40, 167, 69, 0.3);
+}
+
+.btnSelectContainer button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }

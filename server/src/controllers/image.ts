@@ -5,8 +5,8 @@ class ImageController {
   // Get images
   static async getImages(req: Request, res: Response) {
     const queryPage = parseInt(req.query.page as string) || 1
-    const queryFavPage = parseInt(req.query.favpage as string) || 1
-    const isFavourite = req.query.favourite === 'true'
+    const queryFavPage = parseInt(req.query.favPage as string) || 1
+    const isFavourite = req.query.isFavourite === 'true'
 
     try {
       if (isFavourite) {
