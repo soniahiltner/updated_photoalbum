@@ -6,6 +6,7 @@
   padding: 1rem 0.4rem;
   background-color: rgb(215, 225, 228);
   background-color: rgb(180, 219, 230);
+  background-color: var(--navbar-bg-color);
   height: 7rem;
   z-index: 99;
 }
@@ -21,15 +22,21 @@ nav {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  font-variant: all-petite-caps;
+  font-weight: 600;
+  gap: 0.2rem;
 }
 
 nav a {
   text-decoration: none;
   padding-right: 1rem;
-  padding-bottom: 0.2rem;
+  max-width: fit-content;
+  border-radius: 1rem;
 }
+
 nav a:hover {
   text-shadow: 1px 1px 2px black;
+  filter: brightness(1.4);
 }
 
 @media screen and (min-width: 357px) {
@@ -54,12 +61,16 @@ nav a:hover {
   .navLinks {
     flex-direction: row;
     padding: 2rem;
+    font-size: 1.7rem;
   }
 }
 
 @media screen and (min-width: 1024px) {
   .navbar {
     padding: 0 10rem;
+  }
+  nav {
+    font-size: 2rem;
   }
   
 }

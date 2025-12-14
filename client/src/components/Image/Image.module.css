@@ -1,7 +1,8 @@
-.gallery {
-  width: 14rem;
+.imgContainer {
+  width: 12rem;
   padding: 1rem;
   animation: slidein .5s ease-in;
+  
 }
 
 /* animation */
@@ -14,14 +15,20 @@
   }
 }
 
-.gallery img {
+.imgContainer img {
   cursor: pointer;
   border-radius: 1rem;
   padding: 0.2rem;
   transition: all 1s ease-in;
+  box-shadow: 5px 5px 5px rgba(0,0,0,0.5);
+
+  width: 100%; /* La imagen llena el contenedor */
+  /* height: 110px; */ /* Altura fija para un diseño uniforme, ajusta según necesidad */
+  object-fit: cover; /* Recorta la imagen para que cubra todo el espacio sin deformarse */
+  display: block; /* Elimina espacios no deseados debajo de las imágenes */
 }
 
-.gallery img:hover {
+.imgContainer img:hover {
   transform: scale(1.04);
 }
 

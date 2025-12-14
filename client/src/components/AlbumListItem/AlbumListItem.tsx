@@ -1,10 +1,11 @@
 import styles from './AlbumListItem.module.css'
 
 import { Link } from 'react-router'
-import DeleteAlbum from '../DeleteAlbum/DeleteAlbum'
+
 import { useQuery } from '@tanstack/react-query'
 import { imageService } from '../../api/images'
 import type { AlbumType } from '../../types'
+import DeleteAlbumIcon from '../DeleteAlbumIcon/DeleteAlbumIcon'
 
 const AlbumListItem = ({ album }: { album: AlbumType }) => {
   // Get last image for each album
@@ -18,7 +19,7 @@ const AlbumListItem = ({ album }: { album: AlbumType }) => {
     <div className={styles.albumContainer}>
       <div className={styles.header}>
         <h2>{album.name}</h2>
-        <DeleteAlbum album={album} />
+        <DeleteAlbumIcon album={album} />
       </div>
 
       {!image && (

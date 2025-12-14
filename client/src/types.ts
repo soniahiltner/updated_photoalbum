@@ -67,6 +67,14 @@ type TooltipProps = {
   position: 'top' | 'bottom'
 }
 
+type GalleryModalProps = {
+  images: Image[]
+  currentIndex: number
+  onClose: () => void
+  onPrev: () => void
+  onNext: () => void
+}
+
 export type {
   Image,
   AlbumType,
@@ -78,5 +86,6 @@ export type {
   AddToAlbumFormProps,
   IconsProps,
   DeleteImageIconProps,
+  GalleryModalProps,
   TooltipProps
 }

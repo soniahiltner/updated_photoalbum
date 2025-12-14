@@ -15,8 +15,6 @@ const ALLOWED_TYPES = [
   'image/webp'
 ]
 
-
-
 export const useImageUpload = () => {
   const [files, setFilesState] = useState<File[]>([])
   const [validationErrors, setValidationErrors] = useState<ValidationError[]>(
@@ -58,8 +56,9 @@ export const useImageUpload = () => {
   const mutation = useMutation({
     mutationFn: (files: File[]) => imageService.uploadImages(files),
     onSuccess: () => {
-      // Invalidar la caché de imágenes para refetch automático
-      queryClient.invalidateQueries({ queryKey: ['images'] })
+      // Al subir nuevas imágenes, necesitamos resetear y refetch
+      queryClient.resetQueries({ queryKey: ['images'] })
+      queryClient.resetQueries({ queryKey: ['favourites'] })
 
       // Reset después de 2 segundos
       setTimeout(() => {

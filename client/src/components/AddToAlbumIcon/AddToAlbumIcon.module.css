@@ -1,9 +1,7 @@
-.addToAlbumContainer {
-  position: relative;
+.addToAlbumIcon {
+  font-size: 1.4rem;
 }
 
-.addToAlbum {
-  font-size: 1.2rem;
-  cursor: pointer;
-  position: relative;
+.addToAlbumIcon:hover {
+  color: white;
 }

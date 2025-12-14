@@ -11,11 +11,12 @@ const Image = ({
   album
 }: ImageProps) => {
   return (
-    <div className={styles.gallery}>
+    <div className={styles.imgContainer}>
       <img
         src={image?.url}
         alt={image.filename}
         onClick={() => handleOpenModal(index)}
+        tabIndex={0}
       />
       <Icons
         image={image}

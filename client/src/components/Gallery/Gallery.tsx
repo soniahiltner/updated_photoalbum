@@ -1,29 +1,31 @@
 import { useState } from 'react'
 import type { GalleryProps } from '../../types'
 import Image from '../Image/Image'
+import GalleryModal from '../GalleryModal/GalleryModal'
 import styles from './Gallery.module.css'
 
 const Gallery = ({ images, album, favouritesOnly }: GalleryProps) => {
-  const [slideNumber, setSlideNumber] = useState(0)
-  const [openModal, setOpenModal] = useState(false)
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const handleOpenModal = (index: number) => {
-    setSlideNumber(index)
-    setOpenModal(true)
+    setCurrentIndex(index)
+    setIsModalOpen(true)
   }
+
   const handleCloseModal = () => {
-    setOpenModal(false)
+    setIsModalOpen(false)
   }
 
   const handlePrev = () => {
-    if (slideNumber > 0) {
-      setSlideNumber(slideNumber - 1)
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1)
     }
   }
 
   const handleNext = () => {
-    if (slideNumber < images.length - 1) {
-      setSlideNumber(slideNumber + 1)
+    if (currentIndex < images.length - 1) {
+      setCurrentIndex(currentIndex + 1)
     }
   }
 
@@ -43,39 +45,14 @@ const Gallery = ({ images, album, favouritesOnly }: GalleryProps) => {
         ))}
       </div>
 
-      {/* modal */}
-      {openModal && (
-        <div className={styles.sliderContainer}>
-          <span
-            className={styles.closeBtn}
-            onClick={handleCloseModal}
-          >
-            X
-          </span>
-          <span
-            className={`${styles.prevBtn} ${
-              slideNumber === 0 ? styles.disabled : ''
-            }`}
-            onClick={handlePrev}
-          >
-            <i className='fa fa-chevron-left'></i>
-          </span>
-          <span
-            className={`${styles.nextBtn} ${
-              slideNumber === images.length - 1 ? styles.disabled : ''
-            }`}
-            onClick={handleNext}
-          >
-            <i className='fa fa-chevron-right'></i>
-          </span>
-
-          <div className={styles.fullScreen}>
-            <img src={images[slideNumber].url} />
-            <div className={styles.imageCounter}>
-              {slideNumber + 1} / {images.length}
-            </div>
-          </div>
-        </div>
+      {isModalOpen && (
+        <GalleryModal
+          images={images}
+          currentIndex={currentIndex}
+          onClose={handleCloseModal}
+          onPrev={handlePrev}
+          onNext={handleNext}
+        />
       )}
     </div>
   )

@@ -1,5 +1,4 @@
-.binButton {
-  color: gray;
-  cursor: pointer;
-  position: relative;
+.binButton:hover,
+.binButton:focus {
+  color: red;
 }

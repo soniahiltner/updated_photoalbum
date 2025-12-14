@@ -21,44 +21,63 @@
   padding: 1rem;
   border-radius: 1rem;
   box-shadow: inset 0px 0px 10px 1px rgb(140, 135, 175);
-}
 
-.selectForm label {
-  color: rgb(53, 111, 162);
-  display: flex;
-  padding: 0.8rem;
-  font-weight: bold;
-  font-family: sans-serif;
-}
+  label {
+    color: rgb(53, 111, 162);
+    display: flex;
+    padding: 0.8rem;
+    font-weight: bold;
+    font-family: sans-serif;
+  }
 
-.selectForm select {
-  background-color: rgb(211, 205, 255);
-  padding: 0.5rem;
-  border: none;
-  margin-bottom: 1.8rem;
-  border-radius: 1rem;
-  cursor: pointer;
-}
-.selectForm select::-webkit-scrollbar {
-  display: none;
-}
+  select {
+    background-color: rgb(211, 205, 255);
+    padding: 0.5rem;
+    border: none;
+    margin-bottom: 1.8rem;
+    border-radius: 1rem;
+    cursor: pointer;
+  }
 
-.selectForm select:active {
-  border: rgb(211, 205, 255);
-}
-.selectForm select option {
-  padding: 0.5rem;
-  border-radius: 1rem;
-  opacity: 0.8;
-}
+  select::-webkit-scrollbar {
+    display: none;
+  }
 
-.selectForm select option:hover {
-  background-color: rgb(189, 181, 250);
-  opacity: 1;
-}
+  select:active {
+    border: rgb(211, 205, 255);
+  }
 
-.selectForm select option:first-child {
-  display: none;
+  select option {
+    padding: 0.5rem;
+    border-radius: 1rem;
+    opacity: 0.8;
+  }
+
+  select option:hover {
+    background-color: rgb(189, 181, 250);
+    opacity: 1;
+  }
+
+  select option:first-child {
+    display: none;
+  }
+
+  .error {
+    text-align: center;
+    margin-top: 0.5rem;
+    color: rgb(220, 53, 69);
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .success {
+    text-align: center;
+    margin-top: 0.5rem;
+    color: rgb(40, 167, 69);
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-shadow: 0px 0px 8px rgba(40, 167, 69, 0.3);
+  }
 }
 
 .btnSelectContainer {
@@ -66,38 +85,23 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
+
+  button {
+    padding: 0.4rem;
+    border-radius: 1rem;
+    background-color: rgba(238, 130, 238, 0.696);
+    border: none;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: rgb(238, 130, 238);
+  }
+
+  button:disabled {
+   opacity: 0.6;
+    cursor: not-allowed;
+  }
 }
 
-.btnSelectContainer button {
-  padding: 0.4rem;
-  border-radius: 1rem;
-  background-color: rgba(238, 130, 238, 0.696);
-  border: none;
-  cursor: pointer;
-}
 
-.btnSelectContainer button:hover {
-  background-color: rgb(238, 130, 238);
-}
-
-.selectForm .error {
-  text-align: center;
-  margin-top: 0.5rem;
-  color: rgb(220, 53, 69);
-  font-size: 0.875rem;
-  font-weight: 500;
-}
-
-.selectForm .success {
-  text-align: center;
-  margin-top: 0.5rem;
-  color: rgb(40, 167, 69);
-  font-size: 0.875rem;
-  font-weight: 500;
-  text-shadow: 0px 0px 8px rgba(40, 167, 69, 0.3);
-}
-
-.btnSelectContainer button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}

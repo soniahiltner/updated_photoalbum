@@ -1,8 +1,6 @@
 //import Gallery from '../../components/Gallery/Gallery'
 import { useInfiniteQuery } from '@tanstack/react-query'
-import styles from './Favourites.module.css'
 import { favouritesInfiniteQueryOptions } from '../../queryOptions/imagesQueryOptions'
-import type { Image } from '../../types'
 import Gallery from '../../components/Gallery/Gallery'
 import { useEffect, useRef } from 'react'
 
@@ -11,7 +9,7 @@ const Favourites = () => {
     useInfiniteQuery(favouritesInfiniteQueryOptions())
 
   // Flatten all pages into a single array
-  const images: Image[] = data?.pages.flatMap((page) => page.images) || []
+  const images = data?.pages.flatMap((page) => page.images) || []
 
   // Intersection Observer for infinite scroll
   const observerTarget = useRef<HTMLDivElement>(null)
@@ -39,7 +37,7 @@ const Favourites = () => {
   }, [fetchNextPage, hasNextPage, isFetchingNextPage])
 
   return (
-    <div className={styles.favourites}>
+    <div className={'main'}>
       {images.length > 0 && (
         <Gallery
           images={images}

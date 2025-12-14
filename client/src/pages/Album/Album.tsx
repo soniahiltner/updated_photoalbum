@@ -1,12 +1,11 @@
 import { useParams } from 'react-router'
-import styles from './Album.module.css'
 import Gallery from '../../components/Gallery/Gallery'
 import {
   albumsQueryOptions,
   albumImagesInfiniteQueryOptions
 } from '../../queryOptions/imagesQueryOptions'
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
-import type { AlbumType, Image } from '../../types'
+import type { AlbumType } from '../../types'
 import Loader from '../../components/Loader/Loader'
 import { useEffect, useRef } from 'react'
 
@@ -25,7 +24,7 @@ const Album = () => {
     })
 
   // Flatten all pages into a single array
-  const images: Image[] = data?.pages.flatMap((page) => page.images) || []
+  const images = data?.pages.flatMap((page) => page.images) || []
 
   // Intersection Observer for infinite scroll
   const observerTarget = useRef<HTMLDivElement>(null)
@@ -57,8 +56,8 @@ const Album = () => {
   }
 
   return (
-    <div className={styles.album}>
-      <h1>{album?.name} </h1>
+    <div className={'main'}>
+      <h1 style={{ textAlign: 'center' }}>{album?.name} </h1>
       {images.length > 0 && (
         <Gallery
           images={images}

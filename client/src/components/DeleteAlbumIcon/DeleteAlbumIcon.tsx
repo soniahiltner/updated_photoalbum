@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import type { AlbumType } from '../../types'
-import styles from './DeleteAlbum.module.css'
+import styles from './DeleteAlbumIcon.module.css'
 import Tooltip from '../Tooltip/Tooltip'
 import { useDeleteAlbum } from '../../hooks/useDeleteAlbum'
 
-const DeleteAlbum = ({ album }: { album: AlbumType }) => {
+const DeleteAlbumIcon = ({ album }: { album: AlbumType }) => {
   const [hovering, setHovering] = useState(false)
   const { deleteAlbum, isLoading } = useDeleteAlbum()
 
@@ -18,8 +18,8 @@ const DeleteAlbum = ({ album }: { album: AlbumType }) => {
   const mouseOut = () => setHovering(false)
 
   return (
-    <span
-      className={`${styles.binButton} ${isLoading ? styles.loading : ''}`}
+    <button
+      className={`icon ${styles.binButton} ${isLoading ? styles.loading : ''}`}
       onClick={handleDelete}
       onMouseOver={mouseOver}
       onMouseOut={mouseOut}
@@ -31,8 +31,8 @@ const DeleteAlbum = ({ album }: { album: AlbumType }) => {
           position='top'
         />
       )}
-    </span>
+    </button>
   )
 }
 
-export default DeleteAlbum
+export default DeleteAlbumIcon

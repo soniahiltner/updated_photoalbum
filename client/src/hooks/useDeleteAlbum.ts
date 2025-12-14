@@ -9,8 +9,11 @@ export const useDeleteAlbum = () => {
     onSuccess: () => {
       // Invalidate albums list to refetch
       queryClient.invalidateQueries({ queryKey: ['albums'] })
-      // Also invalidate images in case they were filtered by album
-      queryClient.invalidateQueries({ queryKey: ['images'] })
+      // Also invalidate images without resetting pages
+      queryClient.invalidateQueries({
+        queryKey: ['images'],
+        refetchType: 'active'
+      })
     }
   })
 

@@ -6,39 +6,126 @@
   flex-direction: column;
   align-items: flex-end;
   padding: 1rem;
-  padding-top: 1.5rem;
+  padding-top: 1rem;
   margin: 0;
   width: 15rem;
   background-color: rgb(215, 225, 228);
   background-color: rgb(180, 219, 230);
+  background-color: var(--navbar-bg-color);
+
+  label {
+    padding: 0.4rem;
+    background-color: rgba(26, 168, 181, 0.695);
+    background-color: oklch(0.6693 0.1101 204.96) / 70%;
+    cursor: pointer;
+    border-radius: 0.4rem;
+    transition: all 0.1s ease-in-out;
+    box-shadow: 0rem 0rem 0.2rem black;
+    display: inline-block;
+
+    &:hover {
+      background-color: rgb(26, 168, 181);
+      background-color: oklch(0.6693 0.1101 204.96);
+
+      + .hint {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+  }
+
+  input {
+    display: none;
+  }
 }
 
-.uploadform label {
-  padding: 0.4rem;
-  background-color: rgba(26, 168, 181, 0.695);
-  cursor: pointer;
-  border-radius: 0.4rem;
-  transition: all 0.1s ease-in-out;
-  box-shadow: 0rem 0rem 0.2rem black;
+.inputWrapper {
+  position: relative;
 }
 
-.uploadform label:hover {
-  background-color: rgb(26, 168, 181);
-}
-
-.uploadform input {
-  display: none;
+/* Hint text - oculto por defecto, visible en hover */
+.hint {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  font-size: 0.7rem;
+  color: #333;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 0.25rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+  z-index: 10;
+  pointer-events: none;
 }
 
 .preview {
-  margin: 1rem 0;
+  margin: 0.5rem 0;
   margin-left: 1rem;
   color: blueviolet;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.preview:empty {
+  display: none;
 }
 
 .preview li {
   padding: 0.3rem 0;
-  font-size: .8rem;
+  font-size: 0.8rem;
+  list-style: none;
+}
+
+/* Status messages */
+.statusMessage,
+.successMessage {
+  padding: 0.4rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.statusMessage {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.successMessage {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  animation: slideIn 0.3s ease-in-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Error container */
+.errorContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.error {
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
 }
 
 .submit {
@@ -55,20 +142,56 @@
   box-shadow: 0rem 0rem 0.2rem black;
 }
 
-.uploadBtn:hover {
+.uploadBtn:hover:not(:disabled) {
   background-color: rgb(17, 174, 30);
 }
 
-@media screen and (min-width:768px) {
+.uploadBtn:disabled {
+  opacity: 0.8;
+  cursor: not-allowed;
+}
+
+.uploadBtn:focus-visible {
+  outline: 2px solid #1976d2;
+  outline-offset: 2px;
+}
+
+/* File list */
+.fileListTitle {
+  font-size: 0.75rem;
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+  color: #333;
+}
+
+/* Responsiveness adjustments */
+@media screen and (max-width: 767px) {
+  .hint {
+    font-size: 0.65rem;
+    padding: 0.4rem;
+  }
+
+  .preview {
+    font-size: 0.7rem;
+    max-height: 150px;
+  }
+
+  .statusMessage,
+  .successMessage,
+  .error {
+    font-size: 0.7rem;
+  }
+}
+
+@media screen and (min-width: 768px) {
   .uploadform {
-    padding-top: 2rem;
+    padding-top: 1.2rem;
   }
 }
 
 @media screen and (min-width: 1440px) {
   .uploadform {
     right: 4rem;
-    padding-top: 2rem;
+    padding-top: 1.2rem;
   }
-  
 }

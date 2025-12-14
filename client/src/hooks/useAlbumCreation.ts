@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import type { AlbumType, validAlbumName } from '../types'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { albumsQueryOptions } from '../queryOptions/imagesQueryOptions'
@@ -10,6 +10,7 @@ const MAX_NAME_LENGTH = 20
 export const useAlbumCreation = () => {
   const [albumName, setAlbumName] = useState('')
   const [validationErrors, setValidationErrors] = useState<validAlbumName[]>([])
+  const [showSuccess, setShowSuccess] = useState(false)
 
   const queryClient = useQueryClient()
   const { data } = useQuery(albumsQueryOptions())
@@ -59,6 +60,9 @@ export const useAlbumCreation = () => {
       setAlbumName('')
       setValidationErrors([])
 
+      // Mostrar mensaje de éxito
+      setShowSuccess(true)
+
       // Invalidar queries de álbumes
       queryClient.invalidateQueries({ queryKey: ['albums'] })
     },
@@ -72,6 +76,17 @@ export const useAlbumCreation = () => {
       ])
     }
   })
+
+  // Auto-hide del mensaje de éxito después de 3 segundos
+  useEffect(() => {
+    if (showSuccess) {
+      const timer = setTimeout(() => {
+        setShowSuccess(false)
+      }, 3000)
+
+      return () => clearTimeout(timer)
+    }
+  }, [showSuccess])
 
   const handleAlbumNameChange = (name: string) => {
     setAlbumName(name)
@@ -105,7 +120,7 @@ export const useAlbumCreation = () => {
     albumName,
     validationErrors,
     isLoading: mutation.isPending,
-    isSuccess: mutation.isSuccess,
+    isSuccess: showSuccess,
     isError: mutation.isError,
     error: mutation.error,
 

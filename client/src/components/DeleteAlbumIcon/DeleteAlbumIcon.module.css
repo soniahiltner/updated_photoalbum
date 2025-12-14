@@ -1,0 +1,10 @@
+.loading {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.binButton:hover:not(.loading),
+.binButton:focus:not(.loading) {
+  color: red;
+  background-color: var(--icon-hover-bg-color);
+}

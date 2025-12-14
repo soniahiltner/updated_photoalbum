@@ -1,10 +1,3 @@
-.favStar,
-.noFav {
-  position: relative;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
 .favStar {
   color: red;
 }
@@ -29,15 +22,4 @@
     transform: scale(1.1);
     opacity: 0.8;
   }
-}
-
-.favStar:hover,
-.noFav:hover {
-  transform: scale(1.2);
-  filter: brightness(1.2);
-}
-
-.loading:hover {
-  transform: scale(1);
-  filter: none;
 }

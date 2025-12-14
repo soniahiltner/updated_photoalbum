@@ -1,11 +1,10 @@
 import AlbumsList from "../../components/AlbumsList/AlbumsList"
 import CreateAlbumForm from "../../components/CreateAlbumForm/CreateAlbumForm"
-import styles from './Albums.module.css'
 
 
 const Albums = () => {
   return (
-    <div className={styles.albums}>
+    <div className={'main'}>
       <CreateAlbumForm />
       <AlbumsList />
     </div>

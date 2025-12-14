@@ -10,7 +10,7 @@ class ImageService {
       const count = await Image.countDocuments()
       const totalPages = Math.ceil(count / limit)
       const images = await Image.find()
-        .sort({ createdAt: -1 })
+        .sort({ _id: -1 })
         .skip(skip)
         .limit(limit)
         .exec()
@@ -30,7 +30,7 @@ class ImageService {
       const count = await Image.countDocuments({ isFavourite: true })
       const totalPages = Math.ceil(count / limit)
       const images = await Image.find({ isFavourite: true })
-        .sort({ createdAt: -1 })
+        .sort({ _id: -1 })
         .skip(skip)
         .limit(limit)
         .exec()
@@ -49,7 +49,7 @@ class ImageService {
       const count = await Image.countDocuments({ albums: { $in: [albumName] } })
       const totalPages = Math.ceil(count / limit)
       const images = await Image.find({ albums: { $in: [albumName] } })
-        .sort({ createdAt: -1 })
+        .sort({ _id: -1 })
         .skip(skip)
         .limit(limit)
         .exec()
@@ -64,7 +64,7 @@ class ImageService {
   static async getAlbumLastImage(albumName: string) {
     try {
       const image = await Image.findOne({ albums: { $in: [albumName] } })
-        .sort({ createdAt: -1 })
+        .sort({ _id: -1 })
         .limit(1)
         .exec()
       return image

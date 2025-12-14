@@ -48,7 +48,7 @@ const CreateAlbumForm = () => {
           {isLoading ? 'Adding...' : 'Add'}
         </button>
 
-        <div className={styles.errorMessage}>
+        <div className={styles.responseMessage}>
           {errorMessage && <span>{errorMessage}</span>}
           {isSuccess && (
             <span className={styles.success}>Album created successfully!</span>

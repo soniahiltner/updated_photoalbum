@@ -8,14 +8,15 @@
   padding: 0.3rem;
   border-radius: 0.5rem;
   box-shadow:  0px 0px 1px rgb(230, 44, 44);
+  
 }
 
 .tooltipBottom {
-  top: 1.5rem;
+  top: 2.2rem;
   left: -50%;
 }
 
 .tooltipTop {
-  bottom: 1.5rem;
+  bottom: 2rem;
   left: -50%;
 }
