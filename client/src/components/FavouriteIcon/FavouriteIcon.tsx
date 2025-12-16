@@ -21,6 +21,7 @@ const FavouriteIcon = ({ image }: { image: Image }) => {
       onClick={handleClick}
       style={{ cursor: isLoading ? 'wait' : 'pointer' }}
       {...hoverHandlers}
+      aria-label='Toggle Favourite'
     >
       <i className='fa fa-star'></i>
       {hovering && (

@@ -23,6 +23,7 @@ const DeleteAlbumIcon = ({ album }: { album: AlbumType }) => {
       onClick={handleDelete}
       onMouseOver={mouseOver}
       onMouseOut={mouseOut}
+      aria-label='Delete Album'
     >
       <i className={isLoading ? 'fa fa-spinner fa-spin' : 'fa fa-trash'}></i>
       {hovering && (

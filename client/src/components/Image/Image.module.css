@@ -1,14 +1,14 @@
 .imgContainer {
-  width: 12rem;
-  padding: 1rem;
-  animation: slidein .5s ease-in;
-  
+  width: 100%;
+  padding: 0;
+  animation: slidein 0.5s ease-in;
+  position: relative;
 }
 
 /* animation */
 @keyframes slidein {
   from {
-    opacity: .2;
+    opacity: 0.2;
   }
   to {
     opacity: 1;
@@ -18,17 +18,16 @@
 .imgContainer img {
   cursor: pointer;
   border-radius: 1rem;
-  padding: 0.2rem;
-  transition: all 1s ease-in;
-  box-shadow: 5px 5px 5px rgba(0,0,0,0.5);
-
-  width: 100%; /* La imagen llena el contenedor */
-  /* height: 110px; */ /* Altura fija para un diseño uniforme, ajusta según necesidad */
-  object-fit: cover; /* Recorta la imagen para que cubra todo el espacio sin deformarse */
-  display: block; /* Elimina espacios no deseados debajo de las imágenes */
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  height: auto;
+  min-height: 200px;
+  object-fit: cover;
+  display: block;
 }
 
 .imgContainer img:hover {
-  transform: scale(1.04);
+  transform: scale(1.02);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
-

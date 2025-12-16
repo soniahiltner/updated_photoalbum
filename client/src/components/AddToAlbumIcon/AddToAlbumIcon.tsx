@@ -19,6 +19,7 @@ const AddToAlbumIcon = ({ image }: { image: Image }) => {
         className={`icon ${styles.addToAlbumIcon}`}
         onClick={openSelectModal}
         {...hoverHandlers}
+        aria-label='Add to Album'
       >
         <i className='fa fa-folder-plus'></i>
         {hovering && (

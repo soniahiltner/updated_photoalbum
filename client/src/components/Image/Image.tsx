@@ -17,6 +17,8 @@ const Image = ({
         alt={image.filename}
         onClick={() => handleOpenModal(index)}
         tabIndex={0}
+        
+        decoding='async'
       />
       <Icons
         image={image}

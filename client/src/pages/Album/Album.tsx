@@ -56,7 +56,7 @@ const Album = () => {
   }
 
   return (
-    <div className={'main'}>
+    <main className={'main'} role='main'>
       <h1 style={{ textAlign: 'center' }}>{album?.name} </h1>
       {images.length > 0 && (
         <Gallery
@@ -80,7 +80,7 @@ const Album = () => {
           ></i>
         </div>
       )}
-    </div>
+    </main>
   )
 }
 

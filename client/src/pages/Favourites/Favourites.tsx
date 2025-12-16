@@ -37,7 +37,10 @@ const Favourites = () => {
   }, [fetchNextPage, hasNextPage, isFetchingNextPage])
 
   return (
-    <div className={'main'}>
+    <main
+      className={'main'}
+      role='main'
+    >
       {images.length > 0 && (
         <Gallery
           images={images}
@@ -57,7 +60,7 @@ const Favourites = () => {
           ></i>
         </div>
       )}
-    </div>
+    </main>
   )
 }
 

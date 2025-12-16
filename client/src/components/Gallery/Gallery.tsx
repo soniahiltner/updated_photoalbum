@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import type { GalleryProps } from '../../types'
+import { useState, useMemo } from 'react'
+import type { GalleryProps, Image as ImageType } from '../../types'
 import Image from '../Image/Image'
 import GalleryModal from '../GalleryModal/GalleryModal'
 import styles from './Gallery.module.css'
@@ -7,6 +7,18 @@ import styles from './Gallery.module.css'
 const Gallery = ({ images, album, favouritesOnly }: GalleryProps) => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isModalOpen, setIsModalOpen] = useState(false)
+
+  // Distribute images into columns for masonry layout
+  const columns = useMemo(() => {
+    const columnCount = 3
+    const cols: ImageType[][] = Array.from({ length: columnCount }, () => [])
+
+    images?.forEach((image, index) => {
+      cols[index % columnCount].push(image)
+    })
+
+    return cols
+  }, [images])
 
   const handleOpenModal = (index: number) => {
     setCurrentIndex(index)
@@ -32,16 +44,26 @@ const Gallery = ({ images, album, favouritesOnly }: GalleryProps) => {
   return (
     <div className={styles.container}>
       <div className={styles.galleryContainer}>
-        {images?.map((image, index) => (
-          <Image
-            key={image._id}
-            image={image}
-            index={index}
-            handleOpenModal={handleOpenModal}
-            favouritesOnly={favouritesOnly}
-            albumFilter={!!album}
-            album={album}
-          />
+        {columns.map((columnImages, columnIndex) => (
+          <div
+            key={columnIndex}
+            className={styles.column}
+          >
+            {columnImages.map((image) => {
+              const originalIndex = images.indexOf(image)
+              return (
+                <Image
+                  key={image._id}
+                  image={image}
+                  index={originalIndex}
+                  handleOpenModal={handleOpenModal}
+                  favouritesOnly={favouritesOnly}
+                  albumFilter={!!album}
+                  album={album}
+                />
+              )
+            })}
+          </div>
         ))}
       </div>
 

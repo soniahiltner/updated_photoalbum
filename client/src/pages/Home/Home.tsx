@@ -37,7 +37,10 @@ const Home = () => {
 
   return (
     <>
-      <div className={'main'}>
+      <main
+        className={'main'}
+        role='main'
+      >
         {images.length > 0 && <Gallery images={images} />}
         {/* Observer target for infinite scroll */}
         <div
@@ -52,7 +55,7 @@ const Home = () => {
             ></i>
           </div>
         )}
-      </div>
+      </main>
     </>
   )
 }

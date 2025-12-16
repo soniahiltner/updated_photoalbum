@@ -13,7 +13,7 @@ const Navbar = () => {
   return (
     <div className={styles.navbar}>
       <nav>
-        <div className={styles.navLinks}>
+        <div className={styles.navLinks} role='navigation'>
           <NavLink
             to={'/'}
             style={styleNavLink}

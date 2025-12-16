@@ -133,6 +133,7 @@ const DeleteImageIcon = ({ image, album }: DeleteImageIconProps) => {
       className={`icon ${styles.binButton}`}
       onClick={() => deleteImage(image, album)}
       {...hoverHandlers}
+      aria-label='Delete Image'
     >
       <i className='fa fa-trash'></i>
       {hovering && (

@@ -4,10 +4,13 @@ import CreateAlbumForm from "../../components/CreateAlbumForm/CreateAlbumForm"
 
 const Albums = () => {
   return (
-    <div className={'main'}>
+    <main
+      className={'main'}
+      role='main'
+    >
       <CreateAlbumForm />
       <AlbumsList />
-    </div>
+    </main>
   )
 }
 
