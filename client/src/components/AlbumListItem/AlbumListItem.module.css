@@ -1,35 +1,76 @@
 
 .albumContainer {
-  width: 12rem;
-  padding: 1rem;
+  width: 14rem;
+  padding: var(--spacing-lg);
+  background: var(--card-bg);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-base);
+  animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.albumContainer:hover {
+  box-shadow: var(--shadow-xl);
+  transform: translateY(-4px);
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0 0.4rem;
+  margin: 0 var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: var(--font-size-lg);
 }
 
 .albumImageLink {
-  margin-top: 0.1rem;
+  margin-top: var(--spacing-xs);
+  display: block;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
 }
+
 .albumContainer img {
-  padding: 0.5rem;
-  border-radius: 1rem;
-  transition: all 1s ease-in;
+  padding: 0;
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-slow);
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 .albumContainer img:hover {
-  transform: scale(1.04);
+  transform: scale(1.1);
+  filter: brightness(1.05);
 }
 
 .emptyAlbum {
-  border-radius: 1rem;
-  padding: 0.8rem;
-  margin-top: 0.5rem;
-  color: black;
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  margin-top: var(--spacing-sm);
+  color: var(--text-secondary);
   text-align: center;
-  outline: thick double black;
-  font-size: 1.1rem;
+  border: 3px dashed var(--border-color);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  background-color: var(--secondary-bg);
+  transition: all var(--transition-base);
+}
+
+.emptyAlbum:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
 }

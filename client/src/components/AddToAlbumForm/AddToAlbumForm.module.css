@@ -6,102 +6,148 @@
   bottom: 0;
   z-index: 99;
   background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 100%;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .selectForm {
-  background-color: rgb(215, 225, 228);
-  width: 12rem;
+  background-color: var(--card-bg);
+  width: 20rem;
+  max-width: 90%;
   display: flex;
   flex-direction: column;
-  padding: 1rem;
-  border-radius: 1rem;
-  box-shadow: inset 0px 0px 10px 1px rgb(140, 135, 175);
+  padding: var(--spacing-xl);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  animation: slideUp 0.3s ease-out;
+}
 
-  label {
-    color: rgb(53, 111, 162);
-    display: flex;
-    padding: 0.8rem;
-    font-weight: bold;
-    font-family: sans-serif;
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-
-  select {
-    background-color: rgb(211, 205, 255);
-    padding: 0.5rem;
-    border: none;
-    margin-bottom: 1.8rem;
-    border-radius: 1rem;
-    cursor: pointer;
-  }
-
-  select::-webkit-scrollbar {
-    display: none;
-  }
-
-  select:active {
-    border: rgb(211, 205, 255);
-  }
-
-  select option {
-    padding: 0.5rem;
-    border-radius: 1rem;
-    opacity: 0.8;
-  }
-
-  select option:hover {
-    background-color: rgb(189, 181, 250);
+  to {
     opacity: 1;
-  }
-
-  select option:first-child {
-    display: none;
-  }
-
-  .error {
-    text-align: center;
-    margin-top: 0.5rem;
-    color: rgb(220, 53, 69);
-    font-size: 0.875rem;
-    font-weight: 500;
-  }
-
-  .success {
-    text-align: center;
-    margin-top: 0.5rem;
-    color: rgb(40, 167, 69);
-    font-size: 0.875rem;
-    font-weight: 500;
-    text-shadow: 0px 0px 8px rgba(40, 167, 69, 0.3);
+    transform: translateY(0);
   }
 }
 
+.selectForm label {
+  color: var(--text-primary);
+  display: flex;
+  padding: var(--spacing-sm) 0;
+  font-weight: 600;
+  font-size: var(--font-size-lg);
+  letter-spacing: 0.3px;
+}
+
+.selectForm select {
+  background-color: white;
+  padding: var(--spacing-md);
+  border: 2px solid var(--border-color);
+  margin-bottom: var(--spacing-xl);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  font-size: var(--font-size-base);
+  color: var(--text-primary);
+}
+
+.selectForm select:hover {
+  border-color: var(--accent-color);
+}
+
+.selectForm select:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.selectForm select::-webkit-scrollbar {
+  display: none;
+}
+
+.selectForm select option {
+  padding: var(--spacing-md);
+}
+
+.selectForm select option:first-child {
+  display: none;
+}
+
+.selectForm .error {
+  text-align: center;
+  margin-top: var(--spacing-sm);
+  color: var(--error-color);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  padding: var(--spacing-sm);
+  background-color: #fee;
+  border-radius: var(--radius-md);
+}
+
+.selectForm .success {
+  text-align: center;
+  margin-top: var(--spacing-sm);
+  color: var(--success-color);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  padding: var(--spacing-sm);
+  background-color: #d4edda;
+  border-radius: var(--radius-md);
+  animation: fadeIn 0.3s ease;
+}
+
 .btnSelectContainer {
-  margin: 0 1rem;
+  margin: 0;
   display: flex;
   justify-content: space-around;
   align-items: center;
+  gap: var(--spacing-md);
+}
 
-  button {
-    padding: 0.4rem;
-    border-radius: 1rem;
-    background-color: rgba(238, 130, 238, 0.696);
-    border: none;
-    cursor: pointer;
-  }
+.btnSelectContainer button {
+  padding: var(--spacing-md) var(--spacing-xl);
+  border-radius: var(--radius-md);
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: var(--font-size-base);
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-md);
+  flex: 1;
+}
 
-  button:hover {
-    background-color: rgb(238, 130, 238);
-  }
+.btnSelectContainer button:hover:not(:disabled) {
+  background-color: var(--accent-hover);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
 
-  button:disabled {
-   opacity: 0.6;
-    cursor: not-allowed;
-  }
+.btnSelectContainer button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btnSelectContainer button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 

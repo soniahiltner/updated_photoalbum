@@ -1,4 +1,11 @@
+.binButton {
+  transition: all var(--transition-base);
+  color: rgba(255, 255, 255, 0.8);
+}
+
 .binButton:hover,
 .binButton:focus {
-  color: red;
+  color: #f56565;
+  transform: scale(1.15);
+  filter: drop-shadow(0 2px 4px rgba(245, 101, 101, 0.3));
 }

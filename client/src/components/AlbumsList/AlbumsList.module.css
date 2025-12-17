@@ -1,6 +1,17 @@
 .albumsList {
-  margin: 2rem;
+  margin: var(--spacing-xl);
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  gap: var(--spacing-lg);
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

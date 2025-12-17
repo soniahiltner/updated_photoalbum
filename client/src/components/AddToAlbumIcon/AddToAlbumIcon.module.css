@@ -1,7 +1,11 @@
 .addToAlbumIcon {
-  font-size: 1.4rem;
+  font-size: var(--font-size-xl);
+  transition: all var(--transition-base);
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .addToAlbumIcon:hover {
   color: white;
+  transform: scale(1.15);
+  filter: drop-shadow(0 2px 4px rgba(255, 255, 255, 0.3));
 }
