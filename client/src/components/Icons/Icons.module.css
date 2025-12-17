@@ -11,7 +11,3 @@
   opacity: 0;
   transition: opacity var(--transition-base);
 }
-
-.icons:hover {
-  opacity: 1;
-}

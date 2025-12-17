@@ -102,23 +102,31 @@
 }
 
 .prevBtn {
+  left: var(--spacing-lg);
   top: 50%;
   transform: translateY(-50%);
-  left: var(--spacing-lg);
 }
 
 .prevBtn:hover {
   transform: translateY(-50%) scale(1.1);
 }
 
+.prevBtn:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
 .nextBtn {
+  right: var(--spacing-lg);
   top: 50%;
   transform: translateY(-50%);
-  right: var(--spacing-lg);
 }
 
 .nextBtn:hover {
   transform: translateY(-50%) scale(1.1);
+}
+
+.nextBtn:active {
+  transform: translateY(-50%) scale(0.95);
 }
 
 .fullScreen {
