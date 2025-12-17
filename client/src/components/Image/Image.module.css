@@ -1,33 +1,48 @@
 .imgContainer {
   width: 100%;
   padding: 0;
-  animation: slidein 0.5s ease-in;
+  animation: fadeInUp 0.6s ease-out;
   position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  background: var(--card-bg);
 }
 
 /* animation */
-@keyframes slidein {
+@keyframes fadeInUp {
   from {
-    opacity: 0.2;
+    opacity: 0;
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
+    transform: translateY(0);
   }
 }
 
 .imgContainer img {
   cursor: pointer;
-  border-radius: 1rem;
-  transition: all 0.3s ease-in-out;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: var(--radius-xl);
+  transition: all var(--transition-slow);
+  box-shadow: var(--shadow-md);
   width: 100%;
   height: auto;
   min-height: 200px;
   object-fit: cover;
   display: block;
+  filter: brightness(1);
 }
 
-.imgContainer img:hover {
-  transform: scale(1.02);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+.imgContainer:hover {
+  box-shadow: var(--shadow-xl);
+}
+
+.imgContainer:hover img {
+  transform: scale(1.05);
+  filter: brightness(1.05);
+}
+
+/* Show icons on hover */
+.imgContainer:hover > div {
+  opacity: 1;
 }

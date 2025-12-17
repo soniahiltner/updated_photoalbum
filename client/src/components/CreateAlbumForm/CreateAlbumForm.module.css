@@ -1,72 +1,120 @@
 .albumForm {
-  margin: 2rem;
+  margin: var(--spacing-xl);
+  animation: fadeInUp 0.4s ease-out;
 
   form {
     position: relative;
     display: flex;
     flex-wrap: wrap;
-    row-gap: 1rem;
-    margin-bottom: 2rem;
+    row-gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
     justify-content: center;
+    padding: var(--spacing-xl);
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
 
     button {
-      padding: 0.5rem 1rem;
-      font-size: 1.2rem;
-      margin: 0 2rem;
-      border-radius: 20%;
+      padding: var(--spacing-md) var(--spacing-xl);
+      font-size: var(--font-size-lg);
+      margin: 0 var(--spacing-xl);
+      border-radius: var(--radius-md);
       cursor: pointer;
-      background-color: rgb(54, 81, 202);
-      color: wheat;
-      color: #17f5c0;
-      opacity: 0.9;
-      transition: all 0.1s ease-in-out;
+      background-color: var(--accent-color);
+      color: white;
+      border: none;
+      transition: all var(--transition-base);
+      font-weight: 600;
+      box-shadow: var(--shadow-md);
+      letter-spacing: 0.5px;
 
       &:hover {
-        opacity: 1;
-        transform: scale(1.02);
+        background-color: var(--accent-hover);
+        box-shadow: var(--shadow-lg);
+        transform: translateY(-2px);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--accent-color);
+        outline-offset: 2px;
       }
     }
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
 .inputContainer {
   display: flex;
   flex-direction: column;
+  gap: var(--spacing-sm);
 
   label {
-    margin-bottom: 0.1rem;
-    font-size: 1.1rem;
-    color: #17f5c0;
+    font-size: var(--font-size-lg);
+    color: var(--text-primary);
+    font-weight: 600;
+    letter-spacing: 0.3px;
   }
 
   input {
-    padding: 0.3rem;
-    border-radius: 0.5rem;
-    border: 1px solid gray;
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    border: 2px solid var(--border-color);
     outline: none;
-    font-size: 1rem;
+    font-size: var(--font-size-base);
+    transition: all var(--transition-base);
+    background-color: white;
+
+    &:focus {
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    &:hover {
+      border-color: var(--accent-color);
+    }
   }
 }
 
 .responseMessage {
   position: absolute;
   top: 50px;
-  left: 45%;
-  color: red;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  box-shadow: var(--shadow-md);
+  color: var(--error-color);
+  background-color: #fee;
 }
 
 .responseMessage .success {
-  color: green;
+  color: var(--success-color);
+  background-color: #d4edda;
   animation: fadeIn 0.3s ease-in-out;
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateX(-50%) translateY(-10px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(-50%) translateY(0);
   }
 }

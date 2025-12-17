@@ -3,74 +3,111 @@
   justify-content: center;
   position: sticky;
   top: 0;
-  padding: 1rem 0.4rem;
-  background-color: rgb(215, 225, 228);
-  background-color: rgb(180, 219, 230);
-  background-color: var(--navbar-bg-color);
-  height: 7rem;
+  padding: var(--spacing-lg) var(--spacing-md);
+  background-color: var(--navbar-bg);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 8px var(--navbar-shadow);
   z-index: 99;
+  animation: slideDown 0.3s ease-out;
+  transition: all var(--transition-base);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 nav {
   width: 100%;
   padding: 0;
-  font-size: 0.85rem;
+  font-size: var(--font-size-sm);
 }
 
 .navLinks {
-  width: 80%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  font-variant: all-petite-caps;
   font-weight: 600;
-  gap: 0.2rem;
+  gap: var(--spacing-sm);
+  letter-spacing: 0.5px;
 }
 
 nav a {
   text-decoration: none;
-  padding-right: 1rem;
+  padding: var(--spacing-sm) var(--spacing-lg);
   max-width: fit-content;
-  border-radius: 1rem;
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-base);
+  position: relative;
+  font-size: var(--font-size-base);
+  color: var(--text-secondary);
+}
+
+nav a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--accent-color);
+  transition: all var(--transition-base);
+  transform: translateX(-50%);
 }
 
 nav a:hover {
-  text-shadow: 1px 1px 2px black;
-  filter: brightness(1.4);
+  color: var(--accent-color);
+  background-color: var(--icon-hover-bg);
+  transform: translateY(-2px);
+}
+
+nav a:hover::after {
+  width: 80%;
+}
+
+nav a:active {
+  transform: translateY(0);
 }
 
 @media screen and (min-width: 357px) {
   .navbar {
-    padding: 1rem 2rem;
+    padding: var(--spacing-lg) var(--spacing-xl);
   }
   nav {
-    width: 100%;
-
-    font-size: 1rem;
+    font-size: var(--font-size-base);
   }
 }
 
 @media screen and (min-width: 425px) {
   nav {
-    font-size: 1.5rem;
-    width: 90%;
+    font-size: var(--font-size-lg);
   }
 }
 
-@media screen and (min-width: 858px) {
+@media screen and (min-width: 768px) {
+  .navbar {
+    padding: var(--spacing-lg) var(--spacing-2xl);
+  }
+  
   .navLinks {
     flex-direction: row;
-    padding: 2rem;
-    font-size: 1.7rem;
+    gap: var(--spacing-md);
+  }
+  
+  nav a {
+    font-size: var(--font-size-xl);
   }
 }
 
 @media screen and (min-width: 1024px) {
   .navbar {
-    padding: 0 10rem;
+    padding: var(--spacing-lg) 4rem;
   }
-  nav {
-    font-size: 2rem;
-  }
-  
 }

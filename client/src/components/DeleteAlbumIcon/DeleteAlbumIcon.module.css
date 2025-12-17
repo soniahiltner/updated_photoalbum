@@ -3,8 +3,13 @@
   cursor: wait;
 }
 
+.binButton {
+  transition: all var(--transition-base);
+}
+
 .binButton:hover:not(.loading),
 .binButton:focus:not(.loading) {
-  color: red;
-  background-color: var(--icon-hover-bg-color);
+  color: #f56565;
+  background-color: var(--icon-hover-bg);
+  transform: scale(1.15);
 }

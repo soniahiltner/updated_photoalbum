@@ -6,7 +6,8 @@ const Navbar = () => {
 
   const styleNavLink = ({ isActive }: { isActive: boolean }) => {
     return {
-      color: isActive ? '#9d4400' : 'blueviolet'
+      color: isActive ? '#667eea' : '#718096',
+      fontWeight: isActive ? '700' : '600'
     }
   }
   
