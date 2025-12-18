@@ -149,7 +149,8 @@ const UploadForm = () => {
             )}
         </div>
 
-        <div className={styles.submit}>
+        {files.length > 0 && (
+          <div className={styles.submit}>
           <button
             className={styles.uploadBtn}
             type='submit'
@@ -178,6 +179,8 @@ const UploadForm = () => {
             )}
           </button>
         </div>
+        )}
+        
       </form>
     </div>
   )

@@ -3,7 +3,7 @@
   justify-content: center;
   position: sticky;
   top: 0;
-  padding: var(--spacing-lg) var(--spacing-md);
+  padding: var(--spacing-lg) var(--spacing-xs);
   background-color: var(--navbar-bg);
   backdrop-filter: blur(10px);
   box-shadow: 0 2px 8px var(--navbar-shadow);
@@ -94,20 +94,23 @@ nav a:active {
 @media screen and (min-width: 768px) {
   .navbar {
     padding: var(--spacing-lg) var(--spacing-2xl);
+    padding-block: var(--spacing-lg);
+    padding-inline-start: var(--spacing-md);
+    padding-inline-end: 16rem;
   }
   
   .navLinks {
     flex-direction: row;
-    gap: var(--spacing-md);
+    gap: var(--spacing-sm);
   }
   
   nav a {
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-lg);
   }
 }
 
 @media screen and (min-width: 1024px) {
   .navbar {
-    padding: var(--spacing-lg) 4rem;
+    padding-inline-start: var(--spacing-lg);
   }
 }

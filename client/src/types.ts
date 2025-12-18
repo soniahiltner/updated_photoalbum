@@ -64,7 +64,7 @@ type DeleteImageIconProps = {
 
 type TooltipProps = {
   text: string
-  position: 'top' | 'bottom'
+  position: 'top' | 'bottom' | 'bottomLeft'
 }
 
 type GalleryModalProps = {

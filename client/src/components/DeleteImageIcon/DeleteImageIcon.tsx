@@ -139,7 +139,7 @@ const DeleteImageIcon = ({ image, album }: DeleteImageIconProps) => {
       {hovering && (
         <Tooltip
           text='Delete'
-          position='bottom'
+          position='bottomLeft'
         />
       )}
     </button>
