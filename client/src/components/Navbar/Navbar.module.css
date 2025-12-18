@@ -93,7 +93,6 @@ nav a:active {
 
 @media screen and (min-width: 768px) {
   .navbar {
-    padding: var(--spacing-lg) var(--spacing-2xl);
     padding-block: var(--spacing-lg);
     padding-inline-start: var(--spacing-md);
     padding-inline-end: 16rem;
@@ -105,7 +104,7 @@ nav a:active {
   }
   
   nav a {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-xl);
   }
 }
 

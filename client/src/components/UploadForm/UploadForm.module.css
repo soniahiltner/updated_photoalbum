@@ -12,8 +12,8 @@
 
   label {
     padding: var(--spacing-sm) var(--spacing-sm);
-    background-color: var(--accent-color);
-    color: white;
+    background-color: var(--accent-color-darker);
+    color: black;
     cursor: pointer;
     border-radius: var(--radius-md);
     transition: all var(--transition-base);
@@ -206,6 +206,10 @@
 @media screen and (min-width: 768px) {
   .uploadform {
     right: 2rem;
+
+    label {
+      font-size: var(--font-size-base);
+    }
   }
 }
 
