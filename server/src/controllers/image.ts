@@ -55,30 +55,23 @@ class ImageController {
 
   // Create image
   static async createImage(req: Request, res: Response) {
-    console.log('📸 Create image endpoint hit')
-    console.log('📋 Request headers:', req.headers['content-type'])
-    console.log('📁 Files received:', req.files)
 
     try {
       const files = req.files as Express.Multer.File[]
-      console.log('📊 Number of files:', files?.length)
 
       if (!files || files.length === 0) {
         return res.status(400).json({ error: 'No files uploaded' })
       }
 
       // Usar Promise.all para esperar que todas las imágenes se guarden
-      console.log('💾 Saving images to database...')
       const savedImages = await Promise.all(
         files.map(async (file) => {
-          console.log('🖼️  File info (todas las propiedades):', file)
           return await ImageService.createImage(file)
         })
       )
-      console.log('✅ Images saved:', savedImages.length)
 
       const images = await ImageService.getImages(1)
-      console.log('📤 Sending response')
+      
       return res.status(201).json(images)
     } catch (error) {
       console.error('❌ Error in createImage:', error)

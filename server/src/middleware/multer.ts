@@ -15,8 +15,6 @@ const maxFiles = 3
 const uploadMiddleware = upload.array('file', maxFiles)
 
 export const uploadImages = (req: any, res: any, next: any) => {
-  console.log('🚀 uploadImages middleware called')
-  console.log('📋 Content-Type:', req.headers['content-type'])
 
   // Timeout de 30 segundos
   const timeout = setTimeout(() => {
@@ -30,7 +28,6 @@ export const uploadImages = (req: any, res: any, next: any) => {
 
   uploadMiddleware(req, res, (err: any) => {
     clearTimeout(timeout)
-    console.log('✅ Multer finished processing')
 
     if (err) {
       console.error('❌ Multer error:', err)
@@ -39,11 +36,6 @@ export const uploadImages = (req: any, res: any, next: any) => {
       return next(err)
     }
 
-    console.log('📁 Files after multer:', req.files)
-    console.log(
-      '📊 Number of files processed:',
-      (req.files as any[])?.length || 0
-    )
     next()
   })
 }

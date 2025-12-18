@@ -7,7 +7,7 @@
   align-items: flex-end;
   padding: var(--spacing-lg) var(--spacing-sm);
   margin: 0;
-  
+  user-select: none;
   background-color: var(--navbar-bg);
 
   label {
