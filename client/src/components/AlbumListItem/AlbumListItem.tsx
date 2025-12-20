@@ -30,7 +30,7 @@ const AlbumListItem = ({ album }: { album: AlbumType }) => {
       {image && (
         <Link to={`/albums/${album._id}`}>
           <div className={styles.albumImageLink}>
-            <img src={image.url} />
+            <img src={image.url} alt={`Last image of album ${album.name}`} />
           </div>
         </Link>
       )}
