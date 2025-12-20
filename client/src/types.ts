@@ -2,6 +2,9 @@ type Image = {
   _id?: string
   filename: string
   url: string
+  thumbnailUrl?: string
+  mediumUrl?: string
+  blurUrl?: string
   isFavourite: boolean
   albums?: string[]
 }

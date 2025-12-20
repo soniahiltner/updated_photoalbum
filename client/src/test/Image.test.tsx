@@ -14,6 +14,9 @@ describe('Image Component', () => {
     _id: '1',
     filename: 'test-image.jpg',
     url: 'https://example.com/image.jpg',
+    thumbnailUrl: 'https://example.com/image-thumbnail.jpg',
+    mediumUrl: 'https://example.com/image-medium.jpg',
+    blurUrl: 'https://example.com/image-blur.jpg',
     isFavourite: false,
     albums: []
   }
@@ -30,7 +33,7 @@ describe('Image Component', () => {
     render(<Image {...defaultProps} />)
 
     const img = screen.getByRole('img')
-    expect(img).toHaveAttribute('src', mockImage.url)
+    expect(img).toHaveAttribute('src', mockImage.thumbnailUrl)
     expect(img).toHaveAttribute('alt', mockImage.filename)
   })
 

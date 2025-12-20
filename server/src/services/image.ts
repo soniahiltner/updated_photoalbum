@@ -1,5 +1,19 @@
 import { Image } from '../models/image.js'
-import { cloudinary } from '../libs/cloudinary.js'
+import { cloudinary, getAllOptimizedUrls } from '../libs/cloudinary.js'
+
+/**
+ * Helper para enriquecer imágenes con URLs optimizadas
+ */
+function enrichImageWithOptimizedUrls(image: any) {
+  const optimizedUrls = getAllOptimizedUrls(image.url)
+  return {
+    ...image.toObject(),
+    thumbnailUrl: optimizedUrls.thumbnail,
+    mediumUrl: optimizedUrls.medium,
+    blurUrl: optimizedUrls.blur,
+    url: optimizedUrls.original
+  }
+}
 
 class ImageService {
   // Get images
@@ -9,11 +23,12 @@ class ImageService {
     try {
       const count = await Image.countDocuments()
       const totalPages = Math.ceil(count / limit)
-      const images = await Image.find()
+      const rawImages = await Image.find()
         .sort({ _id: -1 })
         .skip(skip)
         .limit(limit)
         .exec()
+      const images = rawImages.map(enrichImageWithOptimizedUrls)
       return { images, page, totalPages, count }
     } catch (error) {
       console.error('Error fetching images:', error)
@@ -29,11 +44,12 @@ class ImageService {
     try {
       const count = await Image.countDocuments({ isFavourite: true })
       const totalPages = Math.ceil(count / limit)
-      const images = await Image.find({ isFavourite: true })
+      const rawImages = await Image.find({ isFavourite: true })
         .sort({ _id: -1 })
         .skip(skip)
         .limit(limit)
         .exec()
+      const images = rawImages.map(enrichImageWithOptimizedUrls)
       return { images, page, totalPages, count }
     } catch (error) {
       console.error('Error fetching favourite images:', error)
@@ -48,11 +64,12 @@ class ImageService {
     try {
       const count = await Image.countDocuments({ albums: { $in: [albumName] } })
       const totalPages = Math.ceil(count / limit)
-      const images = await Image.find({ albums: { $in: [albumName] } })
+      const rawImages = await Image.find({ albums: { $in: [albumName] } })
         .sort({ _id: -1 })
         .skip(skip)
         .limit(limit)
         .exec()
+      const images = rawImages.map(enrichImageWithOptimizedUrls)
       return { images, page, totalPages, count }
     } catch (error) {
       console.error('Error fetching album images:', error)
@@ -67,7 +84,7 @@ class ImageService {
         .sort({ _id: -1 })
         .limit(1)
         .exec()
-      return image
+      return image ? enrichImageWithOptimizedUrls(image) : null
     } catch (error) {
       console.error('Error fetching album last image:', error)
       throw new Error('Could not fetch album last image')
@@ -83,7 +100,7 @@ class ImageService {
         filename: file.public_id || file.filename,
         url: file.secure_url || file.path
       })
-      return image
+      return enrichImageWithOptimizedUrls(image)
     } catch (error) {
       console.error('Error creating image:', error)
       throw new Error('Could not create image')
@@ -113,7 +130,8 @@ class ImageService {
         { isFavourite },
         { new: true }
       )
-      const images = await Image.find()
+      const rawImages = await Image.find()
+      const images = rawImages.map(enrichImageWithOptimizedUrls)
       const favCount = await Image.countDocuments({ isFavourite: true })
       return { images, favCount }
     } catch (error) {
@@ -134,7 +152,7 @@ class ImageService {
       if (!image) {
         throw new Error('Image not found')
       }
-      return image
+      return enrichImageWithOptimizedUrls(image)
     } catch (error) {
       console.error('Error adding image to album:', error)
       throw new Error('Could not add image to album')
@@ -153,7 +171,7 @@ class ImageService {
       if (!image) {
         throw new Error('Image not found')
       }
-      return image
+      return enrichImageWithOptimizedUrls(image)
     } catch (error) {
       console.error('Error removing image from album:', error)
       throw new Error('Could not remove image from album')

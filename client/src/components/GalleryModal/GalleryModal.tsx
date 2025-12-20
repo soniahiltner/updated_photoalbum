@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import type { GalleryModalProps } from '../../types'
 import styles from './GalleryModal.module.css'
 
@@ -9,6 +9,8 @@ const GalleryModal = ({
   onPrev,
   onNext
 }: GalleryModalProps) => {
+  const currentImage = images[currentIndex]
+
   // Handle keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -28,6 +30,25 @@ const GalleryModal = ({
       document.body.style.overflow = 'unset'
     }
   }, [])
+
+  // Preload adjacent images 
+  useEffect(() => {
+    const preloadImages = []
+
+    // Preload next image
+    if (currentIndex < images.length - 1) {
+      const nextImg = new Image()
+      nextImg.src = images[currentIndex + 1].url
+      preloadImages.push(nextImg)
+    }
+
+    // Preload previous image
+    if (currentIndex > 0) {
+      const prevImg = new Image()
+      prevImg.src = images[currentIndex - 1].url
+      preloadImages.push(prevImg)
+    }
+  }, [currentIndex, images])
 
   const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
@@ -73,18 +94,64 @@ const GalleryModal = ({
       </button>
 
       <div className={styles.imageContainer}>
-        <img
-          src={images[currentIndex].url}
-          alt={images[currentIndex].filename}
-          className={styles.image}
+        <ModalImage
+          key={currentImage._id || currentIndex}
+          image={currentImage}
+          currentIndex={currentIndex}
+          totalImages={images.length}
         />
-        <div className={styles.imageInfo}>
-          <span className={styles.imageCounter}>
-            {currentIndex + 1} / {images.length}
-          </span>
-        </div>
       </div>
     </div>
+  )
+}
+
+// Componente interno para manejar el estado de carga de cada imagen
+// Usar key prop para resetear estado automáticamente al cambiar imagen
+function ModalImage({
+  image,
+  currentIndex,
+  totalImages
+}: {
+  image: { url: string; filename: string; blurUrl?: string; _id?: string }
+  currentIndex: number
+  totalImages: number
+}) {
+  const [imageLoaded, setImageLoaded] = useState(false)
+
+  return (
+    <>
+      {/* Blur placeholder mientras carga la imagen */}
+      {!imageLoaded && image.blurUrl && (
+        <img
+          src={image.blurUrl}
+          alt=''
+          className={styles.blurPlaceholder}
+          style={{
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            objectFit: 'contain',
+            filter: 'blur(20px)',
+            transform: 'scale(1.1)'
+          }}
+        />
+      )}
+      <img
+        src={image.url}
+        alt={image.filename}
+        className={styles.image}
+        onLoad={() => setImageLoaded(true)}
+        style={{
+          opacity: imageLoaded ? 1 : 0,
+          transition: 'opacity 0.3s ease-in-out'
+        }}
+      />
+      <div className={styles.imageInfo}>
+        <span className={styles.imageCounter}>
+          {currentIndex + 1} / {totalImages}
+        </span>
+      </div>
+    </>
   )
 }
 
