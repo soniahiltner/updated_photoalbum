@@ -101,6 +101,8 @@ The application will be available at:
 - Frontend: http://localhost:5173
 - Backend: http://localhost:3000
 
+- Live Frontend: https://photoalbum-frontend.onrender.com
+
 ### Production Mode
 
 **Backend:**
@@ -214,7 +216,13 @@ This project is open source and available under the ISC License.
 
 ## 👤 Author
 
+## 🔗 Live Demo
+
+- Frontend (live): https://photoalbum-frontend.onrender.com
+
 Sonia - [https://github.com/soniahiltner]
+
+- Live demo: https://photoalbum-frontend.onrender.com
 
 ## 🙏 Acknowledgments
 
